@@ -1,6 +1,3 @@
-import jenkins.automation.utils.ScmUtils
-import jenkins.automation.utils.EnvironmentUtils
-
 String basePath = 'example1'
 String repo = 'sheehan/grails-example'
 
