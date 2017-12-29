@@ -10,7 +10,7 @@ folder(basePath) {
 Build build = Executor.currentExecutor().currentExecutable as Build
 ParametersAction parametersAction = build.getAction(ParametersAction)
 
-println parametersAction
+println parametersAction.getParameter("Branch")
 
 listView("$basePath") {
     pipelineJob("/test-release") {
