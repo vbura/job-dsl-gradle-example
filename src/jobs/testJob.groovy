@@ -8,9 +8,7 @@ folder(basePath) {
 }
 
 Build build = Executor.currentExecutor().currentExecutable as Build
- def parameter = build.getAction(ParametersAction).getParameter("Branch")
-parameter
-
+def parameter = build.getAction(ParametersAction).getParameter("Branch")
 
 listView("$basePath") {
     pipelineJob("$basePath/pipeline-calls-other-pipeline") {
