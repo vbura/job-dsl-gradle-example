@@ -12,7 +12,7 @@ folder(basePath) {
 job("$basePath/grails example build") {
 
     parameters {
-        runParam( ${branchName}, 'master','test')
+        runParam( 'master', 'master','test')
     }
 
     triggers {
