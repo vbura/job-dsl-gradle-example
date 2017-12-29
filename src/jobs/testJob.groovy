@@ -1,5 +1,4 @@
 import hudson.model.*
-import javaposse.jobdsl.dsl.views.jobfilter.Status
 
 String basePath = 'Release'
 String repo = 'sheehan/grails-example'
@@ -9,7 +8,7 @@ folder(basePath) {
 }
 
 Build build = Executor.currentExecutor().currentExecutable as Build
-def parametersAction = build.getAction(ParametersAction)
+ParametersAction parametersAction = build.getAction(ParametersAction)
 
 parametersAction.parameters.each { ParameterValue v ->
     println v
