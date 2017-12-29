@@ -11,7 +11,7 @@ Build build = Executor.currentExecutor().currentExecutable as Build
 ParametersAction parametersAction = build.getAction(ParametersAction)
 
 parametersAction.parameters.each { ParameterValue v ->
-    println v
+    println v.getValue
 }
 
 listView("$basePath") {
