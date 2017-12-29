@@ -29,7 +29,7 @@ listView("$basePath") {
                      stage("Checkout") {
                             echo 'Hello World'
                             script {
-                                git branch:"$branch" credentialsId: '062dee70-e83b-4843-ab77-443e5fa6c7ab', url: 'ssh://git@git.swisscom.ch:7999/rst/bonita-adapter.git'
+                                git branch:$branch credentialsId: '062dee70-e83b-4843-ab77-443e5fa6c7ab', url: 'ssh://git@git.swisscom.ch:7999/rst/bonita-adapter.git'
                                 def props = readProperties file: 'gradle.properties'
                                 sh "./gradlew clean"
                             }    
