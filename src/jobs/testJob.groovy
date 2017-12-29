@@ -9,9 +9,11 @@ folder(basePath) {
 
 Build build = Executor.currentExecutor().currentExecutable as Build
 ParametersAction parametersAction = build.getAction(ParametersAction)
+println "test vvvvvvvvvvvvvvvvvvvvvv"
 parametersAction.parameters.each { ParameterValue v ->
     println v
 }
+println "test vvvvvvvvvvvvvvvvvvvvvv"
 
 listView("$basePath") {
     pipelineJob("$basePath/pipeline-calls-other-pipeline") {
