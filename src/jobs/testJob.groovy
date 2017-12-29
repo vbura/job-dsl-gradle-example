@@ -1,8 +1,16 @@
+import hudson.model.*
+
 String basePath = 'Release'
 String repo = 'sheehan/grails-example'
 
 folder(basePath) {
     description 'This example shows basic folder/job creation.'
+}
+
+Build build = Executor.currentExecutor().currentExecutable as Build
+ParametersAction parametersAction = build.getAction(ParametersAction)
+parametersAction.parameters.each { ParameterValue v ->
+    println v
 }
 
 listView("$basePath") {
