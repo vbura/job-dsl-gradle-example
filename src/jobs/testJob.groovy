@@ -9,15 +9,13 @@ folder(basePath) {
 
 Build build = Executor.currentExecutor().currentExecutable as Build
 def resolver = build.buildVariableResolver
-def $branch = resolver.resolve("Branch")
-
-println $branch
+def branch = resolver.resolve("Branch")
 
 listView("$basePath") {
     pipelineJob("/test-release") {
         description()
         parameters {
-            stringParam('Branch', "${branch}", 'test',)
+            stringParam('Branch', "$branch", 'test',)
         }
         logRotator {
             numToKeep 10
