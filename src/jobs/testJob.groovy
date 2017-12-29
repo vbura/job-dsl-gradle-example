@@ -15,7 +15,7 @@ listView("$basePath") {
     pipelineJob("/test-release") {
         description()
         parameters {
-            choiceParam('Branch', ["${branch}"])
+            stringParam("${branch}")
         }
         logRotator {
             numToKeep 10
