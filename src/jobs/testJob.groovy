@@ -6,7 +6,7 @@ folder(basePath) {
 }
 
 listView("$basePath") {
-    pipelineJob("$basePath/pipeline-calls-other-pipeline") {
+    job("$basePath/pipeline-calls-other-pipeline") {
 
         parameters {
             runParam('master', 'master', 'test')
