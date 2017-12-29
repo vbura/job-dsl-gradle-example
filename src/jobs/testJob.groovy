@@ -1,3 +1,6 @@
+import hudson.model.ParameterValue;
+import hudson.model.ParametersAction;
+
 String basePath = 'example1'
 String repo = 'sheehan/grails-example'
 
@@ -5,9 +8,11 @@ folder(basePath) {
     description 'This example shows basic folder/job creation.'
 }
 
+
 job("$basePath/grails example build") {
-    scm {
-        github repo
+
+    parameters {
+        runParam( ${branchName}, 'master','test')
     }
 
     triggers {
@@ -18,7 +23,7 @@ job("$basePath/grails example build") {
             git{
                 remote{
                    url ('ssh://git@git.swisscom.ch:7999/rst/bonita-adapter.git')
-                    credentials('osimionica')
+                   credentials('t062dee70-e83b-4843-ab77-443e5fa6c7ab')
                 }
             }
         }
