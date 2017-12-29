@@ -9,13 +9,13 @@ folder(basePath) {
 }
 
 Build build = Executor.currentExecutor().currentExecutable as Build
-def branch = build.getAction(ParametersAction).getParameter("Branch").getValue
-println "$branch"
+def branch = build.getAction(ParametersAction).getParameter("Branch")
+
 listView("$basePath") {
     pipelineJob("/test-release") {
         description()
         parameters {
-            stringParam('Branch', "${branch}", 'test',)
+            textParam('Branch', "${branch}", 'test',)
         }
         logRotator {
             numToKeep 10
