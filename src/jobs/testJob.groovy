@@ -20,6 +20,7 @@ listView("$basePath") {
                 remote {
                     url('ssh://git@git.swisscom.ch:7999/rst/bonita-adapter.git')
                     credentials('062dee70-e83b-4843-ab77-443e5fa6c7ab')
+
                 }
             }
         }
@@ -29,16 +30,17 @@ listView("$basePath") {
                 sandbox()
                 script("""
                node {
-                 stage("Checkout") {
+                     stage("Checkout") {
                             echo 'Hello World'
                             script {
                                 git credentialsId: '062dee70-e83b-4843-ab77-443e5fa6c7ab', url: 'ssh://git@git.swisscom.ch:7999/rst/bonita-adapter.git'
                                 def props = readProperties file: 'gradle.properties'
-                                echo "${props['version']}"
                             }    
                      }
                     stage ('Build') {
-                            sh "echo 'shell scripts to run static tests...'"
+                         sshagent(['062dee70-e83b-4843-ab77-443e5fa6c7ab']) {
+                                sh "git push origin HEAD:test"
+                          }
                     }
                     stage ('Tests') {
                         sh "echo 'shell scripts to run integration tests...'"
