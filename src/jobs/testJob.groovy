@@ -9,7 +9,7 @@ folder(basePath) {
 }
 
 Build build = Executor.currentExecutor().currentExecutable as Build
-def branch = build.getAction(ParametersAction).getParameter("Branch")
+def branch = build.getAction(ParametersAction).getParameter("Branch").getValue
 println "$branch"
 listView("$basePath") {
     pipelineJob("/test-release") {
