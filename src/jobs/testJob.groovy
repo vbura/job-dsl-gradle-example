@@ -27,17 +27,16 @@ listView("$basePath") {
         definition {
             cps {
                 sandbox()
-                s script("""
+                script("""
                      try {
                   stage('Checkout') {
                 steps {
                          echo 'Hello World'
               			script {
                          git credentialsId: '062dee70-e83b-4843-ab77-443e5fa6c7ab', url: 'ssh://git@git.swisscom.ch:7999/rst/bonita-adapter.git'
-                         def props = readProperties file: 'gradle.properties'
                          sshagent(['062dee70-e83b-4843-ab77-443e5fa6c7ab']) {
-                          sh "git push origin HEAD:test)"
-                              }
+                              sh "git push origin HEAD:test)"
+                         }
                     	}
                 	  }	
 				}
