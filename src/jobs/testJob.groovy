@@ -15,15 +15,6 @@ listView("$basePath") {
         logRotator {
             numToKeep 30
         }
-        scm {
-            git {
-                remote {
-                    url('ssh://git@git.swisscom.ch:7999/rst/bonita-adapter.git')
-                    credentials('062dee70-e83b-4843-ab77-443e5fa6c7ab')
-
-                }
-            }
-        }
 
         definition {
             cps {
@@ -35,7 +26,7 @@ listView("$basePath") {
                             script {
                                 git credentialsId: '062dee70-e83b-4843-ab77-443e5fa6c7ab', url: 'ssh://git@git.swisscom.ch:7999/rst/bonita-adapter.git'
                                 def props = readProperties file: 'gradle.properties'
-                                sh "./gradlew release"
+                                sh "./gradlew clean"
                             }    
                      }
                     stage ('Build') {
