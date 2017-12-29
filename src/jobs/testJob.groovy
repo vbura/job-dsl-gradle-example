@@ -14,11 +14,11 @@ listView("$basePath") {
     pipelineJob("$basePath/pipeline-calls-other-pipeline") {
         description()
         parameters {
-            stringParam('master', 'master', 'test',)
+            choiceParam('Branch', ["${branch}"])
         }
 
         logRotator {
-            numToKeep 30
+            numToKeep 10
         }
 
         definition {
