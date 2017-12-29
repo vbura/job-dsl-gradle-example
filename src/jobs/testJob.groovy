@@ -8,9 +8,10 @@ folder(basePath) {
 }
 
 Build build = Executor.currentExecutor().currentExecutable as Build
-ParametersAction parametersAction = build.getAction(ParametersAction)
+def resolver = build.buildVariableResolver
+def $branch = resolver.resolve("Branch")
 
-println parametersAction.getParameter("Branch")
+println $branch
 
 listView("$basePath") {
     pipelineJob("/test-release") {
