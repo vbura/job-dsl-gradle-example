@@ -1,4 +1,5 @@
 import hudson.model.*
+import javaposse.jobdsl.dsl.views.jobfilter.Status
 
 String basePath = 'Release'
 String repo = 'sheehan/grails-example'
@@ -11,12 +12,11 @@ Build build = Executor.currentExecutor().currentExecutable as Build
 def branch = build.getAction(ParametersAction).getParameter("Branch")
 
 listView("$basePath") {
-    pipelineJob("$basePath/pipeline-calls-other-pipeline") {
+    pipelineJob("/test-release") {
         description()
         parameters {
             choiceParam('Branch', ["${branch}"])
         }
-
         logRotator {
             numToKeep 10
         }
@@ -29,7 +29,7 @@ listView("$basePath") {
                      stage("Checkout") {
                             echo 'Hello World'
                             script {
-                                git credentialsId: '062dee70-e83b-4843-ab77-443e5fa6c7ab', url: 'ssh://git@git.swisscom.ch:7999/rst/bonita-adapter.git'
+                                git branch:"$branch" credentialsId: '062dee70-e83b-4843-ab77-443e5fa6c7ab', url: 'ssh://git@git.swisscom.ch:7999/rst/bonita-adapter.git'
                                 def props = readProperties file: 'gradle.properties'
                                 sh "./gradlew clean"
                             }    
@@ -52,5 +52,21 @@ listView("$basePath") {
                 """.stripIndent())
             }
         }
+    }
+    description('All Release jobs')
+    filterBuildQueue()
+    filterExecutors()
+    jobs {
+        name('Release jobs')
+        regex('+release')
+    }
+    columns {
+        status()
+        weather()
+        name()
+        lastSuccess()
+        lastFailure()
+        lastDuration()
+        buildButton()
     }
 }
