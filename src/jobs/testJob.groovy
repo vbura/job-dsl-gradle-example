@@ -8,12 +8,9 @@ folder(basePath) {
 }
 
 Build build = Executor.currentExecutor().currentExecutable as Build
-ParametersAction parametersAction = build.getAction(ParametersAction)
-println "test vvvvvvvvvvvvvvvvvvvvvv"
-parametersAction.parameters.each { ParameterValue v ->
-    println v
-}
-println "test vvvvvvvvvvvvvvvvvvvvvv"
+ def parameter = build.getAction(ParametersAction).getParameter("Branch")
+parameter
+
 
 listView("$basePath") {
     pipelineJob("$basePath/pipeline-calls-other-pipeline") {
@@ -44,7 +41,7 @@ listView("$basePath") {
                          sshagent(['062dee70-e83b-4843-ab77-443e5fa6c7ab']) {
                                 sh "git add ."
                                 sh "git commit -am 'test'"
-                                sh "git push origin HEAD:test"
+                                sh "git push origin HEAD:{$parameter}"
                           }
                     }
                     stage ('Tests') {
