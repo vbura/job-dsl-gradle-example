@@ -9,7 +9,7 @@ listView("$basePath") {
     job("$basePath/pipeline-calls-other-pipeline") {
 
         parameters {
-            runParam('master', 'master', 'test')
+            stringParam('master', 'master', 'test',)
         }
 
         logRotator {
