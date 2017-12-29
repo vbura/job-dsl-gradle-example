@@ -18,7 +18,7 @@ job("$basePath/grails example build") {
             git{
                 remote{
                    url ('ssh://git@git.swisscom.ch:7999/rst/bonita-adapter.git')
-                    credentials('osmionica')
+                    credentials('osimionica')
                 }
             }
         }
