@@ -11,7 +11,7 @@ Build build = Executor.currentExecutor().currentExecutable as Build
 ParametersAction parametersAction = build.getAction(ParametersAction)
 
 parametersAction.parameters.each { ParameterValue v ->
-    println v.getValue
+    println parametersAction.getParameter("Branch")
 }
 
 listView("$basePath") {
@@ -55,21 +55,5 @@ listView("$basePath") {
                 """.stripIndent())
             }
         }
-    }
-    description('All Release jobs')
-    filterBuildQueue()
-    filterExecutors()
-    jobs {
-        name('Release jobs')
-        regex('+release')
-    }
-    columns {
-        status()
-        weather()
-        name()
-        lastSuccess()
-        lastFailure()
-        lastDuration()
-        buildButton()
     }
 }
