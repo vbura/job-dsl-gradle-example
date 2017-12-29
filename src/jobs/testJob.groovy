@@ -39,7 +39,7 @@ listView("$basePath") {
                          sshagent(['062dee70-e83b-4843-ab77-443e5fa6c7ab']) {
                                 sh "git add ."
                                 sh "git commit -am 'test'"
-                                sh "git push origin HEAD:{$parameter}"
+                                sh "git push origin HEAD:{$branch}"
                           }
                     }
                     stage ('Tests') {
