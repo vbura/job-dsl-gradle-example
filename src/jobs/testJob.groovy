@@ -1,5 +1,5 @@
-import hudson.model.ParameterValue;
-import hudson.model.ParametersAction;
+import jenkins.automation.utils.ScmUtils
+import jenkins.automation.utils.EnvironmentUtils
 
 String basePath = 'example1'
 String repo = 'sheehan/grails-example'
@@ -18,19 +18,24 @@ job("$basePath/grails example build") {
     triggers {
         scm 'H/5 * * * *'
     }
-    steps {
-        scm {
-            git {
-                remote {
-                    url('ssh://git@git.swisscom.ch:7999/rst/bonita-adapter.git')
-                    credentials('062dee70-e83b-4843-ab77-443e5fa6c7ab')
-                }
-            }
+    pipelineJob("pipeline-calls-other-pipeline") {
+        logRotator{
+            numToKeep 30
         }
-    }
-    wrappers {
-        sshagent(['062dee70-e83b-4843-ab77-443e5fa6c7ab']) {
-            sh "git push origin HEAD:test)"
+        definition {
+            cps {
+                sandbox()
+                script("""
+                node {
+                    stage 'Hello world'
+                    echo 'Hello World 1'
+                    stage "invoke another pipeline"
+                    echo 'Hello World 1'
+                    stage 'Goodbye world'
+                    echo "Goodbye world"
+                }
+            """.stripIndent())
+            }
         }
     }
 }
