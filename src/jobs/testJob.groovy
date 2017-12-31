@@ -9,18 +9,28 @@ folder(basePath) {
 
 Build build = Executor.currentExecutor().currentExecutable as Build
 def resolver = build.buildVariableResolver
-def branch = resolver.resolve("Branch")
-
+def branchName = resolver.resolve("Branch")
 
 listView("$basePath") {
     pipelineJob("/test-release") {
         description()
         parameters {
-            stringParam('Branch', "$branch", 'test',)
+            stringParam('Branch', "$branchName", 'test',)
         }
         logRotator {
             numToKeep 10
         }
+        scm {
+            git {
+                remote {
+                    name('origin')
+                    url('ssh://git@git.swisscom.ch:7999/rst/bonita-adapter.git')
+                    credentials('062dee70-e83b-4843-ab77-443e5fa6c7ab')
+                }
+                branch('master')
+            }
+        }
+
 
         definition {
             cps {
@@ -30,7 +40,7 @@ listView("$basePath") {
                      stage("Checkout") {
                             echo 'Hello World'
                             script {
-                                git branch:$branch credentialsId: '062dee70-e83b-4843-ab77-443e5fa6c7ab', url: 'ssh://git@git.swisscom.ch:7999/rst/bonita-adapter.git'
+                                git branch:$branchName credentialsId: '062dee70-e83b-4843-ab77-443e5fa6c7ab', url: 'ssh://git@git.swisscom.ch:7999/rst/bonita-adapter.git'
                                 def props = readProperties file: 'gradle.properties'
                                 sh "./gradlew clean"
                             }    
@@ -40,7 +50,7 @@ listView("$basePath") {
                          sshagent(['062dee70-e83b-4843-ab77-443e5fa6c7ab']) {
                                 sh "git add ."
                                 sh "git commit -am 'test'"
-                                sh "git push origin HEAD:{$branch}"
+                                sh "git push origin HEAD:{$branchName}"
                           }
                     }
                     stage ('Tests') {
