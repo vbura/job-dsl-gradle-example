@@ -9,7 +9,7 @@ folder(basePath) {
 
 Build build = Executor.currentExecutor().currentExecutable as Build
 def resolver = build.buildVariableResolver
-def branch = resolver.resolve("Branch")
+def branchNew = resolver.resolve("Branch")
 
 
 listView("$basePath") {
