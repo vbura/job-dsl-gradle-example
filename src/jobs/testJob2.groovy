@@ -14,9 +14,9 @@ def branchNew = resolver.resolve("Branch")
 
 listView("$basePath") {
     job('ci') {
-        scm{
+        scm {
             git {
-                remote{
+                remote {
                     name('origin')
                     url('ssh://git@git.swisscom.ch:7999/rst/bonita-adapter.git')
                     credentials('062dee70-e83b-4843-ab77-443e5fa6c7ab')
@@ -25,14 +25,10 @@ listView("$basePath") {
             }
         }
         steps {
+            shell("git add .")
+            shell("git commit -am 'test'")
+            shell("git push origin HEAD:test123")
 
-        }
-        publishers {
-            git {
-                pushOnlyIfSuccess()
-                branch('origin', 'staging')
-            }
         }
     }
-
 }
