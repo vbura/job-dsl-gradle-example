@@ -31,10 +31,6 @@ listView("$basePath") {
             git {
                 pushOnlyIfSuccess()
                 branch('origin', 'staging')
-                tag('staging', 'foo-staging') {
-                    message('Release staging')
-                    create()
-                }
             }
         }
     }
