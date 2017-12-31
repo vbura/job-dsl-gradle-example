@@ -16,9 +16,9 @@ listView("$basePath") {
     job('ci') {
         scm{
             git {
-                remote('https://github.com/jenkinsci/job-dsl-plugin.git')
-                credentialsId('github-ci')
-                includes('JENKINS-*')
+                remote('ssh://git@git.swisscom.ch:7999/rst/bonita-adapter.git')
+                credentialsId('062dee70-e83b-4843-ab77-443e5fa6c7ab')
+                includes('master*')
             }
         }
     }
