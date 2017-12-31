@@ -25,8 +25,6 @@ listView("$basePath") {
             }
         }
         steps {
-            shell("git add .")
-            shell("git commit -am 'test'")
             shell("git push origin HEAD:test123")
 
         }
