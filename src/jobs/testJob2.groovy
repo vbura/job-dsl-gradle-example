@@ -16,9 +16,12 @@ listView("$basePath") {
     job('ci') {
         scm{
             git {
-                remote('ssh://git@git.swisscom.ch:7999/rst/bonita-adapter.git')
-                credentialsId('062dee70-e83b-4843-ab77-443e5fa6c7ab')
-                includes('master*')
+                remote{
+                    name('origin')
+                    url('ssh://git@git.swisscom.ch:7999/rst/bonita-adapter.git')
+                    credentials('062dee70-e83b-4843-ab77-443e5fa6c7ab')
+                }
+                branch('master')
             }
         }
     }
