@@ -12,9 +12,6 @@ def resolver = build.buildVariableResolver
 def branchName = resolver.resolve("Branch")
 echo "${branchName}"
 
-def props = readProperties file: 'gradle.properties'
-echo "${props['version']}"
-
 
 
 listView("$basePath") {
