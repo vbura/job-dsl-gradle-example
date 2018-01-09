@@ -10,7 +10,7 @@ folder(basePath) {
 Build build = Executor.currentExecutor().currentExecutable as Build
 def resolver = build.buildVariableResolver
 def branchName = resolver.resolve("Branch")
-echo "${branchName}"
+println "${branchName}"
 
 
 
