@@ -12,7 +12,7 @@ def branchName = resolver.resolve("Branch")
 println "${branchName}"
 
 
-File propertiesFile = new File('dsl-test-vlad/bonita-adapter/gradle.properties')
+File propertiesFile = new File('bonita-adapter/gradle.properties')
 propertiesFile.withInputStream {
     properties.load(propertiesFile)
 }
