@@ -1,18 +1,24 @@
 import hudson.model.*
 
 String basePath = 'Release'
-String repo = 'sheehan/grails-example'
 
 folder(basePath) {
-    description 'This example shows basic folder/job creation.'
+    description 'This example shgows basic folder/job creation.'
 }
 
 Build build = Executor.currentExecutor().currentExecutable as Build
 def resolver = build.buildVariableResolver
 def branchName = resolver.resolve("Branch")
 println "${branchName}"
-def props = readProperties file: 'bonita-adapter/gradle.properties'
-println "${props["version"]}"
+
+
+File propertiesFile = new File('${workspace}/bonita-adapter/gradle.properties')
+propertiesFile.withInputStream {
+    properties.load(propertiesFile)
+}
+
+println "${properties["version"]}"
+
 
 listView("$basePath") {
     pipelineJob("/test-release") {
