@@ -17,9 +17,6 @@ println "${branchName}"
 listView("$basePath") {
     pipelineJob("/test-release") {
         description()
-        node{
-            "echo 'Hello World'"
-        }
         parameters {
             stringParam('Branch', "$branchName", 'test',)
         }
