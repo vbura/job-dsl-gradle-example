@@ -11,8 +11,8 @@ Build build = Executor.currentExecutor().currentExecutable as Build
 def resolver = build.buildVariableResolver
 def branchName = resolver.resolve("Branch")
 println "${branchName}"
-
-
+def props = readProperties file: 'bonita-adapter/gradle.properties'
+println "${props["version"]}"
 
 listView("$basePath") {
     pipelineJob("/test-release") {
