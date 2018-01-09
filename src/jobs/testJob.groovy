@@ -16,8 +16,8 @@ println "${branchName}"
 def list = []
 
 def dir = new File(".")
-dir.eachFileRecurse (FileType.FILES) { file ->
-    list << file
+dir.eachDir {
+    list << dir
 }
 
 list.each {
