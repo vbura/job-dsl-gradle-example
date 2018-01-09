@@ -13,15 +13,19 @@ def branchName = resolver.resolve("Branch")
 println "${branchName}"
 
 
-def list = []
-
-def dir = new File(".")
-dir.eachDir {
-    list << dir.getAbsoluteFile()
+def listfiles(dir) {
+    dlist = []
+    flist = []
+    new File(dir).eachDir {dlist << it.name }
+    dlist.sort()
+    new File(dir).eachFile(FileType.FILES, {flist << it.name })
+    flist.sort()
+    return (dlist << flist).flatten()
 }
 
-list.each {
-    println it.path
+fs = listfiles(".")
+fs.each {
+    println it
 }
 
 File propertiesFile = new File('bonita-adapter/gradle.properties')
