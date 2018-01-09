@@ -11,9 +11,15 @@ Build build = Executor.currentExecutor().currentExecutable as Build
 def resolver = build.buildVariableResolver
 def branchName = resolver.resolve("Branch")
 
+
+
+
 listView("$basePath") {
     pipelineJob("/test-release") {
         description()
+        node{
+            "echo 'Hello World'"
+        }
         parameters {
             stringParam('Branch', "$branchName", 'test',)
         }
@@ -28,13 +34,19 @@ listView("$basePath") {
                     url('ssh://git@git.swisscom.ch:7999/rst/bonita-adapter.git')
                     credentials('062dee70-e83b-4843-ab77-443e5fa6c7ab')
                 }
+                extensions {
+                    relativeTargetDirectory('bonita-adapter')
+                }
                 branch('master')
             }
             git {
                 remote {
                     name('origin')
-                    url('ssh://git@git.swisscom.ch:7999/rst/bonita-adapter.git')
+                    url('ssh://git@git.swisscom.ch:7999/rst/gradle-plugins.git')
                     credentials('062dee70-e83b-4843-ab77-443e5fa6c7ab')
+                }
+                extensions {
+                    relativeTargetDirectory('bonita-adapter')
                 }
                 branch('master')
             }
