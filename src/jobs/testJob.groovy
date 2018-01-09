@@ -1,3 +1,4 @@
+import groovy.io.FileType
 import hudson.model.*
 
 String basePath = 'Release'
@@ -11,6 +12,17 @@ def resolver = build.buildVariableResolver
 def branchName = resolver.resolve("Branch")
 println "${branchName}"
 
+
+def list = []
+
+def dir = new File(".")
+dir.eachFileRecurse (FileType.FILES) { file ->
+    list << file
+}
+
+list.each {
+    println it.path
+}
 
 File propertiesFile = new File('bonita-adapter/gradle.properties')
 propertiesFile.withInputStream {
