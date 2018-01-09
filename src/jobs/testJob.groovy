@@ -17,7 +17,7 @@ def list = []
 
 def dir = new File(".")
 dir.eachDir {
-    list << dir
+    list << dir.getAbsoluteFile()
 }
 
 list.each {
