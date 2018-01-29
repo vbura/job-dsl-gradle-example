@@ -9,27 +9,6 @@ folder(basePath) {
 }
 
 Build build = Executor.currentExecutor().currentExecutable as Build
-def resolver = build.buildVariableResolver
-def workspace = pwd()
-def branchName = resolver.resolve("${workspace}")
-println "${branchName}"
-
-
-def listfiles(dir) {
-    dlist = []
-    flist = []
-    new File(dir).eachDir {dlist << it.name }
-    dlist.sort()
-    new File(dir).eachFile(FileType.FILES, {flist << it.name })
-    flist.sort()
-    return (dlist << flist).flatten()
-}
-
-fs = listfiles(".")
-fs.each {
-    println it
-}
-
 File propertiesFile = new File('/agent/workspace/dsl-test-vlad/vlad/gradle.properties')
 propertiesFile.withInputStream {
     properties.load(propertiesFile)
