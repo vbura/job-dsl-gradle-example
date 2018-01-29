@@ -25,7 +25,7 @@ propertiesFile.withInputStream {
     properties.load(it)
 }
 
-println "${propertiesFile["version"]}"
+println "${properties["version"]}"
 
 //
 //listView("$basePath") {
