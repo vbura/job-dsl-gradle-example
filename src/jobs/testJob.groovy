@@ -17,13 +17,11 @@ println "${branchName}"
 
 
 
-def fileFromWorkspace = readFileFromWorkspace('vlad/gradle.properties')
-
-File propsFile = new File(fileFromWorkspace)
+def fileFromWorkspace = streamFileFromWorkspace('vlad/gradle.properties')
 
 
 Properties props = new Properties()
-props.load(propsFile.newDataInputStream())
+props.load(fileFromWorkspace)
 
 
 println props.getProperty('version')
