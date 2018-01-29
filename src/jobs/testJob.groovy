@@ -21,9 +21,6 @@ def fileFromWorkspace = readFileFromWorkspace('vlad/gradle.properties')
 
 Properties properties = new Properties()
 File propertiesFile = new File(fileFromWorkspace)
-propertiesFile.withInputStream {
-    properties.load(it)
-}
 
 println propertiesFile
 
