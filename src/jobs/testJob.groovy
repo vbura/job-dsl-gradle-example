@@ -1,6 +1,5 @@
 import groovy.io.FileType
 import hudson.model.*
-import org.apache.tools.ant.Executor
 
 String basePath = 'Release'
 
@@ -9,7 +8,7 @@ folder(basePath) {
 }
 
 
-println "WOW" + new File(".").getAbsolutePath()
+println "WOW-->" + new File(".").getAbsolutePath()
 
 Build build = Executor.currentExecutor().currentExecutable as Build
 def resolver = build.buildVariableResolver
