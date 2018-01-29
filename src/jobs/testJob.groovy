@@ -16,14 +16,7 @@ def branchName = resolver.resolve("Branch")
 println "${branchName}"
 
 
-
-File srcDir
-// Create a file collection using a closure
-collection = files { srcDir.listFiles() }
-println "Contents of $srcDir.name"
-collection.collect { relativePath(it) }.sort().each { println it }
-
-
+println "eee" + System.getProperty("user.dir")
 
 File propertiesFile = new File('bonita-adapter/gradle.properties')
 propertiesFile.withInputStream {
