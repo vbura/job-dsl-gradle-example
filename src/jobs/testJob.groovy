@@ -8,7 +8,6 @@ folder(basePath) {
     description 'This example shgows basic folder/job creation.'
 }
 
-Build build = Executor.currentExecutor().currentExecutable as Build
 File propertiesFile = new File('/agent/workspace/dsl-test-vlad/vlad/gradle.properties')
 propertiesFile.withInputStream {
     properties.load(propertiesFile)
