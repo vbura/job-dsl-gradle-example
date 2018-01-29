@@ -19,7 +19,14 @@ println "${branchName}"
 
 def fileFromWorkspace = readFileFromWorkspace('vlad/gradle.properties')
 
-println "${fileFromWorkspace["version"]}"
+
+File propertiesFile = new File(fileFromWorkspace)
+
+propertiesFile.withInputStream {
+    properties.load(fileFromWorkspace)
+}
+
+println "${propertiesFile["version"]}"
 
 //
 //listView("$basePath") {
