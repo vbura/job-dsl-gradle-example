@@ -20,7 +20,7 @@ println "${branchName}"
 def fileFromWorkspace = readFileFromWorkspace('vlad/gradle.properties')
 
 
-File propertiesFile = new File(fileFromWorkspace)
+propertiesFile = new Properties()
 
 propertiesFile.withInputStream {
     properties.load(fileFromWorkspace)
