@@ -12,16 +12,23 @@ println "WOW-->" + new File(".").getAbsolutePath()
 
 Build build = Executor.currentExecutor().currentExecutable as Build
 def resolver = build.buildVariableResolver
-def workspace = pwd()
-def branchName = resolver.resolve("${workspace}")
+def branchName = resolver.resolve("Branch")
 println "${branchName}"
+
+
+
+File srcDir
+// Create a file collection using a closure
+collection = files { srcDir.listFiles() }
+println "Contents of $srcDir.name"
+collection.collect { relativePath(it) }.sort().each { println it }
+
 
 
 File propertiesFile = new File('bonita-adapter/gradle.properties')
 propertiesFile.withInputStream {
     properties.load(propertiesFile)
 }
-
 println "${properties["version"]}"
 
 
