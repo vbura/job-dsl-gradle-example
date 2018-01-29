@@ -19,6 +19,7 @@ println "${branchName}"
 new File("test").eachFile() { file->
     println file.getName()
 }
+
 File propertiesFile = new File('bonita-adapter/gradle.properties')
 propertiesFile.withInputStream {
     properties.load(propertiesFile)
