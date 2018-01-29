@@ -36,7 +36,6 @@ def createFilePath(path) {
 }
 
 
-@NonCPS
 def listFiles(rootPath) {
     print "Files in ${rootPath}:";
     for (subPath in rootPath.list()) {
