@@ -20,7 +20,7 @@ println "${branchName}"
 def fileFromWorkspace = readFileFromWorkspace('vlad/gradle.properties')
 
 
-println fileFromWorkspace.getProperties()
+println fileFromWorkspace.getProperties().get('version')
 //
 //listView("$basePath") {
 //    pipelineJob("/test-release") {
