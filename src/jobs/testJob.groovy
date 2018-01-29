@@ -16,7 +16,7 @@ def branchName = resolver.resolve("Branch")
 println "${branchName}"
 
 
-new File(".").eachFile() { file->
+new File("${WORKSPACE}/jobs").eachFile() { file->
     println file.getName()
 }
 
