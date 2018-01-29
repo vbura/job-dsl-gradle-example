@@ -19,8 +19,15 @@ println "${branchName}"
 
 def fileFromWorkspace = readFileFromWorkspace('vlad/gradle.properties')
 
+File propsFile = new File(fileFromWorkspace)
 
-println fileFromWorkspace.getProperties().get('version')
+
+Properties props = new Properties()
+props.load(propsFile.newDataInputStream())
+
+
+println props.getProperty('version')
+
 //
 //listView("$basePath") {
 //    pipelineJob("/test-release") {
