@@ -16,8 +16,9 @@ def branchName = resolver.resolve("Branch")
 println "${branchName}"
 
 
-println "eee" + System.getProperty("user.dir")
-
+new File("test").eachFile() { file->
+    println file.getName()
+}
 File propertiesFile = new File('bonita-adapter/gradle.properties')
 propertiesFile.withInputStream {
     properties.load(propertiesFile)
