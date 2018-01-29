@@ -21,7 +21,7 @@ def fileFromWorkspace = readFileFromWorkspace('vlad/gradle.properties')
 
 def properties = readProperties  file: fileFromWorkspace
 
-println  "${properties.version}"
+println  "${properties['version']}"
 
 
 //
