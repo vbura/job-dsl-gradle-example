@@ -4,8 +4,8 @@ import hudson.model.*
 String basePath = 'Releases'
 
 
-Build build = Executor.currentExecutor().currentExecutable as Build
-def resolver = build.buildVariableResolver
+Build buildEnv = Executor.currentExecutor().currentExecutable as Build
+def resolver = buildEnv.buildVariableResolver
 def branchName = resolver.resolve("Branch")
 
 println "${branchName}"
@@ -23,7 +23,7 @@ println property
 def versionRelease = property.substring(0, property.indexOf('-'))
 
 
-queue('bonita-adapter-master-build')
+build 'bonita-adapter-master-build'
 
 
 pipelineJob('taifun-core-build-' + versionRelease) {
