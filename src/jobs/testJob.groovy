@@ -23,7 +23,7 @@ println property
 def versionRelease = property.substring(0, property.indexOf('-'))
 
 
-build 'bonita-adapter-master-build'
+build job:'bonita-adapter-master-build'
 
 
 pipelineJob('taifun-core-build-' + versionRelease) {
