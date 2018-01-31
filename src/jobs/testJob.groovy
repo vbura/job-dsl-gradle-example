@@ -45,18 +45,20 @@ listView('Releases') {
                             url('ssh://git@git.swisscom.ch:7999/rst/bonita-adapter.git')
                             credentials('062dee70-e83b-4843-ab77-443e5fa6c7ab')
                         }
-                        branches(versionRelease)
+                        branches('master')
                         scriptPath('Jenkinsfile')
                         extensions {}  // required as otherwise it may try to tag the repo, which you may not want
                     }
 
-                    // the single line below also works, but it
-                    // only covers the 'master' branch and may not give you
-                    // enough control.
-                    // git(repo, 'master', { node -> node / 'extensions' << '' } )
                 }
             }
         }
 
+    }
+}
+
+listView('project-view') {
+    jobs {
+        name('taifun-core-build-' + versionRelease)
     }
 }
