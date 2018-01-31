@@ -23,6 +23,9 @@ println property
 def versionRelease = property.substring(0, property.indexOf('-'))
 
 
+queue('bonita-adapter-master-build')
+
+
 pipelineJob('taifun-core-build-' + versionRelease) {
     description('Build aplication when a commit is made on ' + versionRelease + ' branch')
     logRotator {
