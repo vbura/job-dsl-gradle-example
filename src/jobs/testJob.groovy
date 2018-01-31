@@ -1,7 +1,7 @@
 import groovy.io.FileType
 import hudson.model.*
 
-String basePath = 'Release'
+String basePath = 'Releases'
 
 folder(basePath) {
     description 'This example shgows basic folder/job creation.'
@@ -25,7 +25,7 @@ def property = props.getProperty('version')
 println property
 def versionRelease =  property.substring(0, property.indexOf('-'))
 
-listView(Releases) {
+listView(basePath) {
      jobs{
          name("releases/"+versionRelease)
      }
