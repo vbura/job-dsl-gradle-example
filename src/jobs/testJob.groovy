@@ -23,7 +23,7 @@ println property
 def versionRelease =  property.substring(0, property.indexOf('-'))
 
 
-listView('releases') {
+listView('Releases') {
     pipelineJob('releases/'+versionRelease) {
         description()
         parameters {
