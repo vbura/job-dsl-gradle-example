@@ -32,7 +32,7 @@ listView('Releases') {
         triggers {
             bitbucketPush()
             pollSCM {
-
+                scmpoll_spec('')
             }
         }
 
