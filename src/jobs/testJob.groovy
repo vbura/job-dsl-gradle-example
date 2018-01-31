@@ -24,44 +24,36 @@ def versionRelease =  property.substring(0, property.indexOf('-'))
 
 
 listView('Releases') {
-    pipelineJob('releases/'+versionRelease) {
+    pipelineJob('taifun-core-build-'+versionRelease) {
         description()
         parameters {
             stringParam('master', 'master', 'test',)
         }
 
         logRotator {
-            numToKeep 30
+            numToKeep 10
         }
 
         definition {
-            cps {
-                sandbox()
-                script("""
-               node {
-                     stage("Checkout") {
-                            script {
-                                git credentialsId: '062dee70-e83b-4843-ab77-443e5fa6c7ab', url: 'ssh://git@git.swisscom.ch:7999/rst/bonita-adapter.git'
-                                sh "./gradlew clean"
-                            }    
-                     }
-                    stage ('Build') {
-                    
-                         sshagent(['062dee70-e83b-4843-ab77-443e5fa6c7ab']) {
-                                sh "git add ."
-                                sh "git commit -am 'test'"
-                                sh "git push origin HEAD:test"
-                          }
+            cpsScm {
+                scm {
+                    git {
+                        remote {
+                            url('ssh://git@git.swisscom.ch:7999/rst/bonita-adapter.git')
+                            credentials('062dee70-e83b-4843-ab77-443e5fa6c7ab')
+                        }
+                        branches('master')
+                        scriptPath('Jenkinsfile')
+                        extensions { }  // required as otherwise it may try to tag the repo, which you may not want
                     }
-                    stage ('Tests') {
-                        sh "echo 'shell scripts to run integration tests...'"
-                    }
-                    stage ('Deploy') {
-                            sh "echo 'shell scripts to deploy to server...'"
-                    }
-               }
-                """.stripIndent())
+
+                    // the single line below also works, but it
+                    // only covers the 'master' branch and may not give you
+                    // enough control.
+                    // git(repo, 'master', { node -> node / 'extensions' << '' } )
+                }
             }
         }
+
     }
 }
