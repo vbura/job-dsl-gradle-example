@@ -23,8 +23,10 @@ props.load(fileFromWorkspace)
 def property = props.getProperty('version')
 
 println property
-println property.substring(0, property.indexOf('-'))
+def versionRelease =  property.substring(0, property.indexOf('-'))
 
-listView("$property") {
-
+listView(Releases) {
+     jobs{
+         name("releases/"+versionRelease)
+     }
 }
