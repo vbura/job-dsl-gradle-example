@@ -65,11 +65,3 @@ listView('releases') {
         }
     }
 }
-
-
-
-listView(basePath) {
-     jobs{
-         name("releases/"+versionRelease)
-     }
-}
