@@ -20,31 +20,34 @@ props.load(fileFromWorkspace)
 def property = props.getProperty('version')
 
 println property
-def versionRelease =  property.substring(0, property.indexOf('-'))
+def versionRelease = property.substring(0, property.indexOf('-'))
 
 
 listView('Releases') {
-    pipelineJob('taifun-core-build-'+versionRelease) {
-        description()
-        parameters {
-            stringParam('master', 'master', 'test',)
-        }
-
+    pipelineJob('taifun-core-build-' + versionRelease) {
+        description('Build aplication when a commit is made on ' + versionRelease + ' branch')
         logRotator {
             numToKeep 10
+        }
+        triggers {
+            bitbucketPush()
+            pollSCM {
+
+            }
         }
 
         definition {
             cpsScm {
                 scm {
                     git {
+
                         remote {
                             url('ssh://git@git.swisscom.ch:7999/rst/bonita-adapter.git')
                             credentials('062dee70-e83b-4843-ab77-443e5fa6c7ab')
                         }
-                        branches('master')
+                        branches(versionRelease)
                         scriptPath('Jenkinsfile')
-                        extensions { }  // required as otherwise it may try to tag the repo, which you may not want
+                        extensions {}  // required as otherwise it may try to tag the repo, which you may not want
                     }
 
                     // the single line below also works, but it
