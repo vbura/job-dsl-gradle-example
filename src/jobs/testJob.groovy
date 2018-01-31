@@ -3,9 +3,6 @@ import hudson.model.*
 
 String basePath = 'Releases'
 
-folder(basePath) {
-    description 'This example shgows basic folder/job creation.'
-}
 
 Build build = Executor.currentExecutor().currentExecutable as Build
 def resolver = build.buildVariableResolver
