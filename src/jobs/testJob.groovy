@@ -1,6 +1,5 @@
 import groovy.io.FileType
 import hudson.model.*
-import hudson.*
 
 
 Build buildEnv = Executor.currentExecutor().currentExecutable as Build
@@ -20,6 +19,13 @@ def property = props.getProperty('version')
 
 println property
 def versionRelease = property.substring(0, property.indexOf('-'))
+
+
+
+sshagent(['062dee70-e83b-4843-ab77-443e5fa6c7ab']) {
+    sh "echo test"
+}
+
 
 
 pipelineJob('taifun-core-build-' + versionRelease) {
