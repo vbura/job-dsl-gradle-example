@@ -22,8 +22,9 @@ def property = props.getProperty('version')
 println property
 def versionRelease =  property.substring(0, property.indexOf('-'))
 
-job{
-    name("releases/"+versionRelease)
+
+job('releases/'+versionRelease) {
+    logRotator(-1, 10)
     description('This is a Test Job')
 }
 
