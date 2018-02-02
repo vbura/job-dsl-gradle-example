@@ -60,13 +60,6 @@ pipelineJob('git-duplicate') {
     logRotator {
         numToKeep 10
     }
-    triggers {
-        bitbucketPush()
-        pollSCM {
-            scmpoll_spec('')
-        }
-    }
-
     definition {
         cpsScm {
             scm {
