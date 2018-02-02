@@ -69,7 +69,7 @@ pipelineJob('git-duplicate') {
                         url('ssh://git@git.swisscom.ch:7999/rst/bonita-adapter.git')
                         credentials('062dee70-e83b-4843-ab77-443e5fa6c7ab')
                     }
-                    branch('master')
+                    branch('test')
                 }
             }
             steps {
