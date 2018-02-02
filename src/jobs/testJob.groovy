@@ -54,7 +54,6 @@ pipelineJob('taifun-core-build-' + versionRelease) {
 
 }
 
-
 pipelineJob('git-duplicate') {
     description('Build aplication when a commit is made on ' + versionRelease + ' branch')
     logRotator {
@@ -69,14 +68,14 @@ pipelineJob('git-duplicate') {
                             echo 'Hello World'
                             script {
                                 git credentialsId: '062dee70-e83b-4843-ab77-443e5fa6c7ab', url: 'ssh://git@git.swisscom.ch:7999/rst/bonita-adapter.git'
-                                sh " sed -i "/version=/ s/=.*/={$versionRelease}.0/" gradle.properties"
+                                sh " sed -i "/version=/ s/=.*/=$versionRelease.0/" gradle.properties"
                             }    
                      }
                     stage ('Build') {
                          sshagent(['062dee70-e83b-4843-ab77-443e5fa6c7ab']) {
                                 sh "git add ."
-                                sh "git commit -am 'Create branch {$versionRelease}  by Jenkins'"
-                                sh "git push origin HEAD:releases/{$versionRelease}test"
+                                sh "git commit -am 'Create branch $versionRelease  by Jenkins'"
+                                sh "git push origin HEAD:releases/$versionReleasetest"
                           }
                     }
                     stage ('Tests') {
