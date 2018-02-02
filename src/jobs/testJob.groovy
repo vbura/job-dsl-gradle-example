@@ -74,8 +74,8 @@ pipelineJob('git-duplicate') {
                     stage ('Build') {
                          sshagent(['062dee70-e83b-4843-ab77-443e5fa6c7ab']) {
                                 sh "git add ."
-                                sh "git commit -am 'Create branch $versionRelease  by Jenkins'"
-                                sh "git push -u origin test/$versionRelease"
+                                sh "git commit -am 'Create branch $versionRelease by Jenkins'"
+                                sh "git push origin test/$versionRelease"
                           }
                     }
                     stage ('Tests') {
