@@ -29,7 +29,7 @@ pipelineJob('taifun-core-build-' + versionRelease) {
                 git {
 
                     remote {
-                        url('ssh://git@git.swisscom.ch:7999/rst/bonita-adapter.git')
+                        url('https://git.swisscom.ch/scm/rst/taifun-adapter.git')
                         credentials('062dee70-e83b-4843-ab77-443e5fa6c7ab')
                     }
                     branches('master')
