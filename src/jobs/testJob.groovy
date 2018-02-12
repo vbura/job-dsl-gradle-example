@@ -29,8 +29,8 @@ pipelineJob('taifun-core-build-' + versionRelease) {
                 git {
 
                     remote {
-                        url('https://git.swisscom.ch/scm/rst/taifun-adapter.git')
-                        credentials('062dee70-e83b-4843-ab77-443e5fa6c7ab')
+                        url('https://git.swisscom.ch/scm/rst/bonita-adapter.git')
+                        credentials('7ccc73cf-51af-4f1b-802c-2dad7c63857d')
                     }
                     branches('master')
                     scriptPath('Jenkinsfile')
@@ -56,7 +56,7 @@ pipelineJob('git-duplicate') {
                      stage("Checkout") {
                             echo 'Hello World'
                             script {
-                                git credentialsId: '062dee70-e83b-4843-ab77-443e5fa6c7ab', url: 'ssh://git@git.swisscom.ch:7999/rst/bonita-adapter.git'
+                                git credentialsId: '7ccc73cf-51af-4f1b-802c-2dad7c63857d', url: 'ssh://git@git.swisscom.ch:7999/rst/bonita-adapter.git'
                                 sh " sed -i '/version=/ s/=.*/=$versionRelease.0/' gradle.properties"
                             }    
                      }
