@@ -2,7 +2,7 @@ import static com.dslexample.util.StepsUtil.*
 
 String project = getJobParameter( "project")
 String version = getVersionFromPropertiesFile(project)
-String gitUrl = getGitName(project)
+String gitUrl = getGitUrl(project)
 
 def versionRelease = version.substring(0, version.indexOf('-'))
 def releaseDate = getReleaseDate()
