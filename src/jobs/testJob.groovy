@@ -116,6 +116,7 @@ private String getVersionFromPropertiesFile(String PROJECT) {
     if (PROJECT == 'taifun-core')
         PROJECT = PROJECT +"/master"
     def fileFromWorkspace = streamFileFromWorkspace(PROJECT + '/gradle.properties')
+    println fileFromWorkspace
     Properties props = new Properties()
     props.load(fileFromWorkspace)
     def version = props.getProperty('version')
