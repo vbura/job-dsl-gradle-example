@@ -90,6 +90,9 @@ pipelineJob('git-duplicate') {
 
                     stage ('Create Branch $versionRelease') {
                         git credentialsId: '7ccc73cf-51af-4f1b-802c-2dad7c63857d', url: '$gitUrl'
+
+                        sh "git config --global user.name 'Vlad Bura'"
+                        sh "git config --global user.email vlad.bura@hpe.com"
                         sh "sed -i '/version=/ s/=.*/=$versionRelease.1-SNAPSHOT/' gradle.properties"
                         sh "git add ."
                         sh "git commit -am 'Create branch $versionRelease by Jenkins'"
