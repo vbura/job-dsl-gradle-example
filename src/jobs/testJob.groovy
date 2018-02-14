@@ -6,6 +6,7 @@ String gitUrl = getGitName(project)
 
 println version
 
+
 def versionRelease = version.substring(0, version.indexOf('-'))
 def releaseDate = getReleaseDate()
 
