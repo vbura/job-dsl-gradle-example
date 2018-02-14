@@ -1,28 +1,18 @@
-import groovy.io.FileType
-import hudson.model.*
+import static com.dslexample.util.StepsUtil.getGitName
+import static com.dslexample.util.StepsUtil.getReleaseDate
+import static com.dslexample.util.StepsUtil.getVersionBasedOnGradlePropery
+import static com.dslexample.util.StepsUtil.projectName
 
-Build buildEnv = Executor.currentExecutor().currentExecutable as Build
-def resolver = buildEnv.buildVariableResolver
-def project = resolver.resolve("project")
+String project = getProjectName()
+String version = getVersionBasedOnGradlePropery('vlad', 'gradle.properties')
+
 
 println "${project}"
+println getGitName(project)
+println version
 
-
-
-def fileFromWorkspace = streamFileFromWorkspace('vlad/gradle.properties')
-Properties props = new Properties()
-props.load(fileFromWorkspace)
-def property = props.getProperty('version')
-
-println property
-def versionRelease = property.substring(0, property.indexOf('-'))
-
-
-def date = new Date()
-def dayOfMonth = date.getAt(Calendar.DAY_OF_MONTH)
-def month = date.getAt(Calendar.MONTH)
-
-
+def versionRelease = version.substring(0, version.indexOf('-'))
+def releaseDate = getReleaseDate()
 
 
 pipelineJob(project + '-build-' + versionRelease) {
@@ -104,7 +94,7 @@ pipelineJob('git-duplicate') {
 
                     stage ('Create Branch $versionRelease') {
                          sshagent(['062dee70-e83b-4843-ab77-443e5fa6c7ab']) {
-                                sh "git checkout T-$month-$dayOfMonth-$versionRelease"
+                                sh "git checkout T-${releaseDate}-$versionRelease"
                                 sh "sed -i '/version=/ s/=.*/=$versionRelease.1-SNAPSHOT/' gradle.properties"
                                 sh "git add ."
                                 sh "git commit -am 'Create branch $versionRelease by Jenkins'"
