@@ -31,6 +31,10 @@ class StepsUtil {
         def gitProject = "https://git.swisscom.ch/scm/rst/" + PROJECT + ".git"
         return gitProject
     }
+    static String getSshUrl(String PROJECT) {
+        def gitProject = " ssh://git@git.swisscom.ch:7999/rst/" + PROJECT + ".git"
+        return gitProject
+    }
 
 
 

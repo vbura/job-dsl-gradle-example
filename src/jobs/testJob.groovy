@@ -3,6 +3,7 @@ import static com.dslexample.util.StepsUtil.*
 String project = getJobParameter("project")
 String version = getVersionFromPropertiesFile(project)
 String gitUrl = getGitUrl(project)
+String gitSshUrl= getSshUrl(project)
 
 def versionRelease = version.substring(0, version.indexOf('-'))
 
@@ -54,7 +55,7 @@ pipelineJob(project + '-release-' + versionRelease) {
                 git {
 
                     remote {
-                        url(gitUrl)
+                        url(gitSshUrl)
                         credentials('7ccc73cf-51af-4f1b-802c-2dad7c63857d')
                     }
                     branches('**/releases' + versionRelease)
@@ -80,12 +81,12 @@ pipelineJob('git-duplicate') {
                node {
                      stage("Checkout") {
                             script {
-                                git credentialsId: '7ccc73cf-51af-4f1b-802c-2dad7c63857d', url: 'ssh://git@git.swisscom.ch:7999/rst/taifun-common.git'
+                                git credentialsId: '7ccc73cf-51af-4f1b-802c-2dad7c63857d', url: '$gitSshUrl'
                             }    
                      }
 
                     stage('Trigger Release JOB'){
-                        build job: '${project}-master-build', parameters: [credentials(description: '', name: 'Nexus repository', value: 'nexusPassword')]
+                        build job: '${project}-release', parameters: [credentials(description: '', name: 'Nexus repository', value: 'nexusPassword')]
                     }    
 
                     stage ('Create Branch $versionRelease') {
