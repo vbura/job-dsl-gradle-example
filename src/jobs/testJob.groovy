@@ -85,7 +85,7 @@ pipelineJob('git-duplicate') {
                      }
 
                     stage('Trigger Release JOB'){
-                        build job: '${project}-build', parameters: [credentials(description: '', name: 'Nexus repository', value: 'nexusPassword')]
+                        build job: '${project}-master-build', parameters: [credentials(description: '', name: 'Nexus repository', value: 'nexusPassword')]
                     }    
 
                     stage ('Create Branch $versionRelease') {
