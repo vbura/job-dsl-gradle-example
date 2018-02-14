@@ -94,7 +94,7 @@ pipelineJob('git-duplicate') {
                node {
                      stage("Checkout") {
                             script {
-                                git credentialsId: '7ccc73cf-51af-4f1b-802c-2dad7c63857d', url: 'https://git.swisscom.ch/scm/rst/'+ $project +'.git'
+                                git credentialsId: '7ccc73cf-51af-4f1b-802c-2dad7c63857d', url: 'https://git.swisscom.ch/scm/rst/$project.git'
                             }    
                      }
 
