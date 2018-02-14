@@ -90,8 +90,6 @@ pipelineJob('git-duplicate') {
 
                     stage ('Create Branch $versionRelease') {
                          sshagent(['062dee70-e83b-4843-ab77-443e5fa6c7ab']) {
-                                sh "git pull"
-                                sh "git checkout $tag"
                                 sh "sed -i '/version=/ s/=.*/=$versionRelease.1-SNAPSHOT/' gradle.properties"
                                 sh "git add ."
                                 sh "git commit -am 'Create branch $versionRelease by Jenkins'"
