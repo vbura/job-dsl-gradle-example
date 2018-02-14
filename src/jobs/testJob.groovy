@@ -80,7 +80,7 @@ pipelineJob('git-duplicate') {
                node {
                      stage("Checkout") {
                             script {
-                                git credentialsId: '7ccc73cf-51af-4f1b-802c-2dad7c63857d', url: '$gitUrl'
+                                git credentialsId: '7ccc73cf-51af-4f1b-802c-2dad7c63857d', url: 'ssh://git@git.swisscom.ch:7999/rst/taifun-common.git'
                             }    
                      }
 
@@ -89,15 +89,12 @@ pipelineJob('git-duplicate') {
                     }    
 
                     stage ('Create Branch $versionRelease') {
-                        git credentialsId: '7ccc73cf-51af-4f1b-802c-2dad7c63857d', url: '$gitUrl'
-
-                        sh "git config --global user.name 'Vlad Bura'"
-                        sh "git config --global user.email vlad.bura@hpe.com"
-                        sh "sed -i '/version=/ s/=.*/=$versionRelease.1-SNAPSHOT/' gradle.properties"
-                        sh "git add ."
-                        sh "git commit -am 'Create branch $versionRelease by Jenkins'"
-                        sh "git push origin HEAD:releases/$versionRelease"
-                  
+                         sshagent(['062dee70-e83b-4843-ab77-443e5fa6c7ab']) {
+                                sh "sed -i '/version=/ s/=.*/=$versionRelease.1-SNAPSHOT/' gradle.properties"
+                                sh "git add ."
+                                sh "git commit -am 'Create branch $versionRelease by Jenkins'"
+                                sh "git push origin HEAD:releases/$versionRelease"
+                          }
                     }
                     
                     stage('Initial Build $versionRelease'){
