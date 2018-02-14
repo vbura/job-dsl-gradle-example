@@ -43,7 +43,7 @@ pipelineJob(project + '-build-' + versionRelease) {
                 git {
 
                     remote {
-                        url('https://git.swisscom.ch/scm/rst/'+project+'.git')
+                        url('https://git.swisscom.ch/scm/rst/' + project + '.git')
                         credentials('7ccc73cf-51af-4f1b-802c-2dad7c63857d')
                     }
                     branches(versionRelease)
@@ -68,7 +68,7 @@ pipelineJob(project + '-release-' + versionRelease) {
                 git {
 
                     remote {
-                        url('https://git.swisscom.ch/scm/rst/'+project+'.git')
+                        url('https://git.swisscom.ch/scm/rst/' + project + '.git')
                         credentials('7ccc73cf-51af-4f1b-802c-2dad7c63857d')
                     }
                     branches(versionRelease)
@@ -94,7 +94,7 @@ pipelineJob('git-duplicate') {
                node {
                      stage("Checkout") {
                             script {
-                                git credentialsId: '7ccc73cf-51af-4f1b-802c-2dad7c63857d', url: 'https://git.swisscom.ch/scm/rst/'+$project+'.git'
+                                git credentialsId: '7ccc73cf-51af-4f1b-802c-2dad7c63857d', url: 'https://git.swisscom.ch/scm/rst/'+ $project +'.git'
                             }    
                      }
 
