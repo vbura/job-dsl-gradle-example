@@ -1,4 +1,5 @@
 package com.dslexample.util
+
 import hudson.model.Build
 import hudson.model.Executor
 
@@ -18,6 +19,7 @@ class StepsUtil {
             }
         }
     }
+
     static String getProjectName() {
         Build buildEnv = Executor.currentExecutor().currentExecutable as Build
         def resolver = buildEnv.buildVariableResolver
@@ -25,8 +27,8 @@ class StepsUtil {
         project
     }
 
-     static String getGitName(String project) {
-        def gitProject = "https://git.swisscom.ch/"+project+".git"
+    static String getGitName(String project) {
+        def gitProject = "https://git.swisscom.ch/" + project + ".git"
         return gitProject
     }
 
@@ -35,7 +37,7 @@ class StepsUtil {
         def date = new Date()
         def dayOfMonth = date.getAt(Calendar.DAY_OF_MONTH)
         def month = date.getAt(Calendar.MONTH)
-        month-dayOfMonth
+        month - dayOfMonth
     }
 
 }
