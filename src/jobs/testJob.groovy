@@ -85,16 +85,16 @@ pipelineJob('git-duplicate') {
                      }
 
                     stage('Trigger Release JOB'){
-                        build job: '${project}-release', parameters: [credentials(description: '', name: 'Nexus repository', value: 'nexusPassword')]
+                        build job: '${project}-build', parameters: [credentials(description: '', name: 'Nexus repository', value: 'nexusPassword')]
                     }    
 
                     stage ('Create Branch $versionRelease') {
-                         sshagent(['062dee70-e83b-4843-ab77-443e5fa6c7ab']) {
-                                sh "sed -i '/version=/ s/=.*/=$versionRelease.1-SNAPSHOT/' gradle.properties"
-                                sh "git add ."
-                                sh "git commit -am 'Create branch $versionRelease by Jenkins'"
-                                sh "git push origin HEAD:releases/$versionRelease"
-                          }
+                        git credentialsId: '7ccc73cf-51af-4f1b-802c-2dad7c63857d', url: '$gitUrl'
+                        sh "sed -i '/version=/ s/=.*/=$versionRelease.1-SNAPSHOT/' gradle.properties"
+                        sh "git add ."
+                        sh "git commit -am 'Create branch $versionRelease by Jenkins'"
+                        sh "git push origin HEAD:releases/$versionRelease"
+                  
                     }
                     
                     stage('Initial Build $versionRelease'){
