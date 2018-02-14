@@ -1,13 +1,8 @@
 import static com.dslexample.util.StepsUtil.*
 
 String project = getProjectName()
-//String version = getVersionBasedOnGradlePropery('vlad', 'gradle.properties')
+String version = getVersionFromPropertiesFile()
 
-
-def fileFromWorkspace = streamFileFromWorkspace('vlad/gradle.properties')
-Properties props = new Properties()
-props.load(fileFromWorkspace)
-def version = props.getProperty('version')
 
 println "${project}"
 println getGitName(project)

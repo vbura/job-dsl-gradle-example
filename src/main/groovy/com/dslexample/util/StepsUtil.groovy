@@ -31,11 +31,12 @@ class StepsUtil {
          return gitProject
     }
 
-    static String getVersionBasedOnGradlePropery(String workspaceProjectFolder, String propertyFileName) {
-        def fileFromWorkspace = streamFileFromWorkspace(workspaceProjectFolder + '/' + propertyFileName)
+    static String getVersionFromPropertiesFile() {
+        def fileFromWorkspace = streamFileFromWorkspace('vlad/gradle.properties')
         Properties props = new Properties()
         props.load(fileFromWorkspace)
-        props.getProperty('version')
+        def version = props.getProperty('version')
+        version
     }
 
     static String getReleaseDate() {
