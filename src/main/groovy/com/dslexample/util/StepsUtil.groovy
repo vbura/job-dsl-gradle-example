@@ -36,7 +36,7 @@ class StepsUtil {
     static String getReleaseDate() {
         def date = new Date()
         def dayOfMonth = date.getAt(Calendar.DAY_OF_MONTH)
-        def month = date.getAt(Calendar.MONTH)
+        def month = date.getAt(Calendar.MONTH) + 1
         dayOfMonth + '.' + month
     }
 
