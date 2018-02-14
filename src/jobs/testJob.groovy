@@ -5,7 +5,11 @@ String version = getVersionFromPropertiesFile(project)
 String gitUrl = getGitUrl(project)
 
 def versionRelease = version.substring(0, version.indexOf('-'))
-def releaseDate = getReleaseDate()
+def releaseDate =getReleaseDate()
+def tag =  "T-${releaseDate}-$versionRelease"
+
+println releaseDate
+println tag
 
 
 pipelineJob(project + '-build-' + versionRelease) {
@@ -87,7 +91,7 @@ pipelineJob('git-duplicate') {
 
                     stage ('Create Branch $versionRelease') {
                          sshagent(['062dee70-e83b-4843-ab77-443e5fa6c7ab']) {
-                                sh "git checkout T-${releaseDate}-$versionRelease"
+                                sh "git checkout $tag"
                                 sh "sed -i '/version=/ s/=.*/=$versionRelease.1-SNAPSHOT/' gradle.properties"
                                 sh "git add ."
                                 sh "git commit -am 'Create branch $versionRelease by Jenkins'"

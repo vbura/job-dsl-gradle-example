@@ -37,7 +37,7 @@ class StepsUtil {
         def date = new Date()
         def dayOfMonth = date.getAt(Calendar.DAY_OF_MONTH)
         def month = date.getAt(Calendar.MONTH)
-        month - dayOfMonth
+        dayOfMonth + '.' + month
     }
 
 }
