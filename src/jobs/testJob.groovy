@@ -1,11 +1,9 @@
 import static com.dslexample.util.StepsUtil.*
 
-String project = getProjectName()
-String version = getVersionFromPropertiesFile()
+String project = getJobParameter( "project")
+String version = getVersionFromPropertiesFile(project)
 String gitUrl = getGitName(project)
 
-
-println "${project}"
 println version
 
 def versionRelease = version.substring(0, version.indexOf('-'))
@@ -114,8 +112,8 @@ pipelineJob('git-duplicate') {
 
 
 
-private String getVersionFromPropertiesFile() {
-    def fileFromWorkspace = streamFileFromWorkspace('vlad/gradle.properties')
+private String getVersionFromPropertiesFile(String PROJECT) {
+    def fileFromWorkspace = streamFileFromWorkspace(PROJECT + '/gradle.properties')
     Properties props = new Properties()
     props.load(fileFromWorkspace)
     def version = props.getProperty('version')
