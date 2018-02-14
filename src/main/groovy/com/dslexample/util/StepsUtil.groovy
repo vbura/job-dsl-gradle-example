@@ -31,13 +31,6 @@ class StepsUtil {
          return gitProject
     }
 
-    static String getVersionFromPropertiesFile() {
-        def fileFromWorkspace = streamFileFromWorkspace('vlad/gradle.properties')
-        Properties props = new Properties()
-        props.load(fileFromWorkspace)
-        def version = props.getProperty('version')
-        version
-    }
 
     static String getReleaseDate() {
         def date = new Date()

@@ -4,6 +4,7 @@ String project = getProjectName()
 String version = getVersionFromPropertiesFile()
 
 
+
 println "${project}"
 println getGitName(project)
 println version
@@ -110,4 +111,14 @@ pipelineJob('git-duplicate') {
                 """.stripIndent())
         }
     }
+}
+
+
+
+private String getVersionFromPropertiesFile() {
+    def fileFromWorkspace = streamFileFromWorkspace('vlad/gradle.properties')
+    Properties props = new Properties()
+    props.load(fileFromWorkspace)
+    def version = props.getProperty('version')
+    version
 }
