@@ -5,10 +5,9 @@ String version = getVersionFromPropertiesFile(project)
 String gitUrl = getGitUrl(project)
 
 def versionRelease = version.substring(0, version.indexOf('-'))
-def releaseDate =getReleaseDate()
-def tag =  "T-${releaseDate}-$versionRelease"
 
-println releaseDate
+def tag =  'T-'+new Date().format('yy.MM')+'-${version}'
+
 println tag
 
 
