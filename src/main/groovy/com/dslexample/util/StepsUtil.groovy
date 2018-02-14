@@ -20,15 +20,15 @@ class StepsUtil {
         }
     }
 
-    static String getProjectName() {
+    static String getJobParameter(String PARAMETER) {
         Build buildEnv = Executor.currentExecutor().currentExecutable as Build
         def resolver = buildEnv.buildVariableResolver
-        def project = resolver.resolve("project")
+        def project = resolver.resolve(PARAMETER)
         project
     }
 
-    static String getGitName(String project) {
-        def gitProject = "https://git.swisscom.ch/" + project + ".git"
+    static String getGitName(String PROJECT) {
+        def gitProject = "https://git.swisscom.ch/" + PROJECT + ".git"
         return gitProject
     }
 
