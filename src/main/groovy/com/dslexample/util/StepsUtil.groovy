@@ -28,7 +28,7 @@ class StepsUtil {
     }
 
     static String getGitUrl(String PROJECT) {
-        def gitProject = "https://git.swisscom.ch/rst/" + PROJECT + ".git"
+        def gitProject = "https://git.swisscom.ch/scm/rst/" + PROJECT + ".git"
         return gitProject
     }
 
