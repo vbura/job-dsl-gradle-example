@@ -9,7 +9,6 @@ println "${project}"
 
 
 
-
 def fileFromWorkspace = streamFileFromWorkspace('vlad/gradle.properties')
 Properties props = new Properties()
 props.load(fileFromWorkspace)
@@ -20,7 +19,7 @@ def versionRelease = property.substring(0, property.indexOf('-'))
 
 
 
-pipelineJob(project + 'build-' + versionRelease) {
+pipelineJob(project + '-build-' + versionRelease) {
     description('Build aplication when a commit is made on ' + versionRelease + ' branch')
     logRotator {
         numToKeep 10
@@ -38,11 +37,36 @@ pipelineJob(project + 'build-' + versionRelease) {
                 git {
 
                     remote {
-                        url('https://git.swisscom.ch/scm/rst/bonita-'+project+'.git')
+                        url('https://git.swisscom.ch/scm/rst/'+project+'.git')
                         credentials('7ccc73cf-51af-4f1b-802c-2dad7c63857d')
                     }
                     branches('master')
                     scriptPath('Jenkinsfile')
+                    extensions {}  // required as otherwise it may try to tag the repo, which you may not want
+                }
+
+            }
+        }
+    }
+
+}
+
+pipelineJob(project + '-release-' + versionRelease) {
+    description('Build aplication when a commit is made on ' + versionRelease + ' branch')
+    logRotator {
+        numToKeep 10
+    }
+    definition {
+        cpsScm {
+            scm {
+                git {
+
+                    remote {
+                        url('https://git.swisscom.ch/scm/rst/'+project+'.git')
+                        credentials('7ccc73cf-51af-4f1b-802c-2dad7c63857d')
+                    }
+                    branches('master')
+                    scriptPath('Jenkins/Nexus/Jenkinsfile')
                     extensions {}  // required as otherwise it may try to tag the repo, which you may not want
                 }
 
