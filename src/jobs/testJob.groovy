@@ -113,6 +113,8 @@ pipelineJob('git-duplicate') {
 
 
 private String getVersionFromPropertiesFile(String PROJECT) {
+    if (PROJECT == 'taifun-core')
+        PROJECT = PROJECT +"/master"
     def fileFromWorkspace = streamFileFromWorkspace(PROJECT + '/gradle.properties')
     Properties props = new Properties()
     props.load(fileFromWorkspace)
