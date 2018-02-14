@@ -6,7 +6,7 @@ String gitUrl = getGitUrl(project)
 
 def versionRelease = version.substring(0, version.indexOf('-'))
 
-def tag = 'T-' + new Date().format('yy.MM') + '-' + version
+def tag = 'T-' + new Date().format('yy.MM') + '-' + versionRelease
 
 println tag
 
