@@ -2,11 +2,10 @@ import static com.dslexample.util.StepsUtil.*
 
 String project = getProjectName()
 String version = getVersionFromPropertiesFile()
-
+String gitUrl = getGitName(project)
 
 
 println "${project}"
-println getGitName(project)
 println version
 
 def versionRelease = version.substring(0, version.indexOf('-'))
@@ -56,7 +55,7 @@ pipelineJob(project + '-release-' + versionRelease) {
                 git {
 
                     remote {
-                        url('https://git.swisscom.ch/scm/rst/' + project + '.git')
+                        url(gitUrl)
                         credentials('7ccc73cf-51af-4f1b-802c-2dad7c63857d')
                     }
                     branches(versionRelease)
@@ -82,7 +81,7 @@ pipelineJob('git-duplicate') {
                node {
                      stage("Checkout") {
                             script {
-                                git credentialsId: '7ccc73cf-51af-4f1b-802c-2dad7c63857d', url: 'https://git.swisscom.ch/scm/rst/$project.git'
+                                git credentialsId: '7ccc73cf-51af-4f1b-802c-2dad7c63857d', url: '$gitUrl'
                             }    
                      }
 
