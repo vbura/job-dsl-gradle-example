@@ -1,6 +1,15 @@
 import groovy.io.FileType
 import hudson.model.*
 
+Build buildEnv = Executor.currentExecutor().currentExecutable as Build
+def resolver = buildEnv.buildVariableResolver
+def project = resolver.resolve("project")
+
+println "${project}"
+
+
+
+
 def fileFromWorkspace = streamFileFromWorkspace('vlad/gradle.properties')
 Properties props = new Properties()
 props.load(fileFromWorkspace)
@@ -11,7 +20,7 @@ def versionRelease = property.substring(0, property.indexOf('-'))
 
 
 
-pipelineJob('taifun-core-build-' + versionRelease) {
+pipelineJob(project + 'build-' + versionRelease) {
     description('Build aplication when a commit is made on ' + versionRelease + ' branch')
     logRotator {
         numToKeep 10
@@ -29,7 +38,7 @@ pipelineJob('taifun-core-build-' + versionRelease) {
                 git {
 
                     remote {
-                        url('https://git.swisscom.ch/scm/rst/bonita-adapter.git')
+                        url('https://git.swisscom.ch/scm/rst/bonita-'+project+'.git')
                         credentials('7ccc73cf-51af-4f1b-802c-2dad7c63857d')
                     }
                     branches('master')
@@ -56,8 +65,8 @@ pipelineJob('git-duplicate') {
                      stage("Checkout") {
                             echo 'Hello World'
                             script {
-                                git credentialsId: '7ccc73cf-51af-4f1b-802c-2dad7c63857d', url: 'ssh://git@git.swisscom.ch:7999/rst/bonita-adapter.git'
-                                sh " sed -i '/version=/ s/=.*/=$versionRelease.0/' gradle.properties"
+                                git credentialsId: '7ccc73cf-51af-4f1b-802c-2dad7c63857d', url: 'https://git.swisscom.ch/scm/rst/'+project+'.git'
+                                sh " sed -i '/version=/ s/=.*/=$versionRelease.1-SNAPSHOT/' gradle.properties"
                             }    
                      }
                     stage ('Build') {
