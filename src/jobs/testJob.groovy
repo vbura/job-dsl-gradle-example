@@ -4,9 +4,6 @@ String project = getJobParameter( "project")
 String version = getVersionFromPropertiesFile(project)
 String gitUrl = getGitName(project)
 
-println version
-
-
 def versionRelease = version.substring(0, version.indexOf('-'))
 def releaseDate = getReleaseDate()
 
@@ -29,10 +26,10 @@ pipelineJob(project + '-build-' + versionRelease) {
                 git {
 
                     remote {
-                        url('https://git.swisscom.ch/scm/rst/' + project + '.git')
+                        url(gitUrl)
                         credentials('7ccc73cf-51af-4f1b-802c-2dad7c63857d')
                     }
-                    branches(versionRelease)
+                    branches('**/releases'+versionRelease)
                     scriptPath('Jenkinsfile')
                     extensions {}  // required as otherwise it may try to tag the repo, which you may not want
                 }
@@ -57,7 +54,7 @@ pipelineJob(project + '-release-' + versionRelease) {
                         url(gitUrl)
                         credentials('7ccc73cf-51af-4f1b-802c-2dad7c63857d')
                     }
-                    branches(versionRelease)
+                    branches('**/releases'+versionRelease)
                     scriptPath('Jenkins/Nexus/Jenkinsfile')
                     extensions {}  // required as otherwise it may try to tag the repo, which you may not want
                 }
@@ -85,7 +82,7 @@ pipelineJob('git-duplicate') {
                      }
 
                     stage('Trigger Release JOB'){
-                        echo "Release succesful"
+                        build job: '${project}-release', parameters: [credentials(description: '', name: 'Nexus repository', value: 'nexusPassword')]
                     }    
 
                     stage ('Create Branch $versionRelease') {
@@ -99,7 +96,7 @@ pipelineJob('git-duplicate') {
                     }
                     
                     stage('Initial Build $versionRelease'){
-                         echo "BULD $project $versionRelease "
+                        build '${project}-build-${versionRelease}'
                     }
                     
                     stage ('Tests') {
@@ -116,11 +113,7 @@ pipelineJob('git-duplicate') {
 private String getVersionFromPropertiesFile(String PROJECT) {
     if (PROJECT == 'taifun-core')
         PROJECT = PROJECT +"/master"
-
-    println PROJECT
-
     def fileFromWorkspace = streamFileFromWorkspace(PROJECT + '/gradle.properties')
-    println fileFromWorkspace
     Properties props = new Properties()
     props.load(fileFromWorkspace)
     def version = props.getProperty('version')

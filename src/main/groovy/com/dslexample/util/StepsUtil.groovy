@@ -28,7 +28,7 @@ class StepsUtil {
     }
 
     static String getGitName(String PROJECT) {
-        def gitProject = "https://git.swisscom.ch/" + PROJECT + ".git"
+        def gitProject = "https://git.swisscom.ch/rst" + PROJECT + ".git"
         return gitProject
     }
 
