@@ -1,12 +1,12 @@
 import static com.dslexample.util.StepsUtil.*
 
-String project = getJobParameter( "project")
+String project = getJobParameter("project")
 String version = getVersionFromPropertiesFile(project)
 String gitUrl = getGitUrl(project)
 
 def versionRelease = version.substring(0, version.indexOf('-'))
 
-def tag =  'T-'+new Date().format('yy.MM')+'-${version}'
+def tag = 'T-' + new Date().format('yy.MM') + '-' + version
 
 println tag
 
@@ -32,7 +32,7 @@ pipelineJob(project + '-build-' + versionRelease) {
                         url(gitUrl)
                         credentials('7ccc73cf-51af-4f1b-802c-2dad7c63857d')
                     }
-                    branches('**/releases'+versionRelease)
+                    branches('**/releases' + versionRelease)
                     scriptPath('Jenkinsfile')
                     extensions {}  // required as otherwise it may try to tag the repo, which you may not want
                 }
@@ -57,7 +57,7 @@ pipelineJob(project + '-release-' + versionRelease) {
                         url(gitUrl)
                         credentials('7ccc73cf-51af-4f1b-802c-2dad7c63857d')
                     }
-                    branches('**/releases'+versionRelease)
+                    branches('**/releases' + versionRelease)
                     scriptPath('Jenkins/Nexus/Jenkinsfile')
                     extensions {}  // required as otherwise it may try to tag the repo, which you may not want
                 }
@@ -112,10 +112,9 @@ pipelineJob('git-duplicate') {
 }
 
 
-
 private String getVersionFromPropertiesFile(String PROJECT) {
     if (PROJECT == 'taifun-core')
-        PROJECT = PROJECT +"/master"
+        PROJECT = PROJECT + "/master"
     def fileFromWorkspace = streamFileFromWorkspace(PROJECT + '/gradle.properties')
     Properties props = new Properties()
     props.load(fileFromWorkspace)
