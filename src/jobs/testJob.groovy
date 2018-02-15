@@ -6,14 +6,14 @@ String gitUrl = getGitUrl(project)
 String gitSshUrl= getSshUrl(project)
 
 def versionRelease = version.substring(0, version.indexOf('-'))
-
 def tag = 'T-' + new Date().format('yy.MM') + '-' + versionRelease
 
 println tag
 
 
 pipelineJob(project + '-build-' + versionRelease) {
-    description('Build aplication when a commit is made on ' + versionRelease + ' branch')
+    description('Jenkins Release JOB for ' + versionRelease + ' branch.' +
+                'Build application when a commit is made on ' + versionRelease + ' branch')
     logRotator {
         numToKeep 10
     }
@@ -45,7 +45,7 @@ pipelineJob(project + '-build-' + versionRelease) {
 }
 
 pipelineJob(project + '-release-' + versionRelease) {
-    description('Build aplication when a commit is made on ' + versionRelease + ' branch')
+    description('Jenkins Release JOB for ' + versionRelease + ' branch')
     logRotator {
         numToKeep 10
     }
@@ -69,8 +69,9 @@ pipelineJob(project + '-release-' + versionRelease) {
 
 }
 
-pipelineJob('git-duplicate') {
-    description('Build aplication when a commit is made on ' + versionRelease + ' branch')
+pipelineJob('git-branch-and-build-trigger') {
+    description('This is an automatic created job that trigger by RELEASE job. Is  creating new release branch, ' +
+            'new release manual job, new release build job and trigger first time Jenkins release build job ' )
     logRotator {
         numToKeep 10
     }
@@ -89,7 +90,7 @@ pipelineJob('git-duplicate') {
                         build job: '${project}-release', parameters: [credentials(description: '', name: 'Nexus repository', value: 'nexusPassword')]
                     }    
 
-                    stage ('Create Branch $versionRelease') {
+                    stage ('Create Release Branch') {
                          sshagent(['062dee70-e83b-4843-ab77-443e5fa6c7ab']) {
                                 sh "sed -i '/version=/ s/=.*/=$versionRelease.1-SNAPSHOT/' gradle.properties"
                                 sh "git add ."
@@ -98,7 +99,7 @@ pipelineJob('git-duplicate') {
                           }
                     }
                     
-                    stage('Initial Build $versionRelease'){
+                    stage('Trigger Release Build'){
                         build '${project}-build-${versionRelease}'
                     }
                     
