@@ -56,7 +56,7 @@ pipelineJob(project + '-release-' + versionRelease) {
 
                     remote {
                         url(gitSshUrl)
-                        credentials('7ccc73cf-51af-4f1b-802c-2dad7c63857d')
+                        credentials('062dee70-e83b-4843-ab77-443e5fa6c7ab')
                     }
                     branches('**/releases/' + versionRelease)
                     scriptPath('Jenkins/Nexus/Jenkinsfile')
