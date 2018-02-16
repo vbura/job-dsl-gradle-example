@@ -58,9 +58,11 @@ pipelineJob(project + '-release-' + versionRelease) {
                         url(gitSshUrl)
                         credentials('062dee70-e83b-4843-ab77-443e5fa6c7ab')
                     }
+                    extensions {
+                        localBranch('**')
+                    } 
                     branches('**/releases/' + versionRelease)
                     scriptPath('Jenkins/Nexus/Jenkinsfile')
-                    extensions {}  // required as otherwise it may try to tag the repo, which you may not want
                 }
 
             }
@@ -82,7 +84,7 @@ pipelineJob('git-branch-and-build-trigger') {
                node {
                      stage("Checkout") {
                             script {
-                                git credentialsId: '062dee70-e83b-4843-ab77-443e5fa6c7ab', url: '$gitSshUrl' , localBranch 'master'
+                                git credentialsId: '062dee70-e83b-4843-ab77-443e5fa6c7ab', url: '$gitSshUrl'
                             }    
                      }
 
