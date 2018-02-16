@@ -32,7 +32,7 @@ class StepsUtil {
         return gitProject
     }
     static String getSshUrl(String PROJECT) {
-        def gitProject = " ssh://git@git.swisscom.ch:7999/rst/" + PROJECT + ".git"
+        def gitProject = "ssh://git@git.swisscom.ch:7999/rst/" + PROJECT + ".git"
         return gitProject
     }
 

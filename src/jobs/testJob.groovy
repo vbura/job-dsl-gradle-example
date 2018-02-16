@@ -33,9 +33,14 @@ pipelineJob(project + '-build-' + versionRelease) {
                         url(gitUrl)
                         credentials('7ccc73cf-51af-4f1b-802c-2dad7c63857d')
                     }
+                    extensions {
+                        localBranch('**')
+                        cloneOptions{
+                            timeout(50)
+                        }
+                    }
                     branches('**/releases/' + versionRelease)
                     scriptPath('Jenkinsfile')
-                    extensions {}  // required as otherwise it may try to tag the repo, which you may not want
                 }
 
             }
@@ -60,7 +65,10 @@ pipelineJob(project + '-release-' + versionRelease) {
                     }
                     extensions {
                         localBranch('**')
-                    } 
+                        cloneOptions{
+                            timeout(50)
+                        }
+                    }
                     branches('**/releases/' + versionRelease)
                     scriptPath('Jenkins/Nexus/Jenkinsfile')
                 }
