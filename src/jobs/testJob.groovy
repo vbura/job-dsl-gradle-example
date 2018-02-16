@@ -82,7 +82,7 @@ pipelineJob('git-branch-and-build-trigger') {
                node {
                      stage("Checkout") {
                             script {
-                                git credentialsId: '7ccc73cf-51af-4f1b-802c-2dad7c63857d', url: '$gitSshUrl'
+                                git credentialsId: '062dee70-e83b-4843-ab77-443e5fa6c7ab', url: '$gitSshUrl'
                             }    
                      }
 
